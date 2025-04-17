@@ -3,3 +3,4 @@
 !Assets/
 !Assets/**/
 !*.cs
+!**/Templates/**.asset
