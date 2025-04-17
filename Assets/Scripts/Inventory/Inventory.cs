@@ -7,9 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public InventorySlot[] slots;
     public int size;
-    public int selectedSlotIndex = -1;
 
-    public event Action<int, int> OnSelectedSlotChanged;
     public event Action<Inventory> OnInventoryChange;
 
     public void Awake()
@@ -25,25 +23,6 @@ public class Inventory : MonoBehaviour
             InventorySlot newSlot = new InventorySlot(this);
             slots[i] = newSlot;
         }
-    }
-
-    //move to new script playerInventory
-    public int SelectSlot(int newSlotIndex)
-    {
-        if (newSlotIndex == selectedSlotIndex)
-        {
-            return selectedSlotIndex;
-        }
-
-        if (newSlotIndex >= size)
-        {
-            return selectedSlotIndex;
-        }
-
-        int oldSlotIndex = selectedSlotIndex;
-        selectedSlotIndex = newSlotIndex;
-        OnSelectedSlotChanged(oldSlotIndex, selectedSlotIndex);
-        return selectedSlotIndex;
     }
 
     //Add new item to inventory
@@ -169,38 +148,6 @@ public class Inventory : MonoBehaviour
 
         OnInventoryChange(this);
         return true;
-    }
-
-    public void Update()
-    {
-        if (Keyboard.current.numpad0Key.wasPressedThisFrame)
-        {
-            SelectSlot(0);
-        }
-        else if (Keyboard.current.numpad1Key.wasPressedThisFrame)
-        {
-            SelectSlot(1);
-        }
-        else if (Keyboard.current.numpad2Key.wasPressedThisFrame)
-        {
-            SelectSlot(2);
-        }
-        else if (Keyboard.current.numpad3Key.wasPressedThisFrame)
-        {
-            SelectSlot(3);
-        }
-        else if (Keyboard.current.numpad4Key.wasPressedThisFrame)
-        {
-            SelectSlot(4);
-        }
-        else if (Keyboard.current.numpad5Key.wasPressedThisFrame)
-        {
-            SelectSlot(5);
-        }
-        else if (Keyboard.current.numpad0Key.wasPressedThisFrame)
-        {
-            SelectSlot(6);
-        }
     }
 
     public int AddItemToSlot(InventorySlot targetSlot, InventoryItemSO itemToAdd, int amount)

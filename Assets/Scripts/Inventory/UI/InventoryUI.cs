@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    Inventory playerInventory;
+    PlayerInventory playerInventory;
 
     public Color selectedSlotColor;
     public Color notSelectedSlotColor;
@@ -19,19 +19,19 @@ public class InventoryUI : MonoBehaviour
     public InventorySlotUI[] playerInventorySlotsUI;
 
     public List<InventorySlotUI> containerInventorySlotsUI = new List<InventorySlotUI>();
-    PlayerInteract playerInteract;
+    PlayerController playerController;
     GameObject player;
 
     public void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerInventory = player.GetComponent<Inventory>();
-        playerInteract = player.GetComponent<PlayerInteract>();
+        playerInventory = player.GetComponent<PlayerInventory>();
+        playerController = player.GetComponent<PlayerController>();
         // containerInventoryPanel = GameObject.FindWithTag("ContainerInventoryUI").transform;
 
         InitializePlayerInventory();
-        playerInteract.OnContainerPlayerInteract += InitializeContainerUI;
-        playerInteract.OnContainerPlayerClose += CloseContainerUI;
+        playerController.OnContainerPlayerInteract += InitializeContainerUI;
+        playerController.OnContainerPlayerClose += CloseContainerUI;
     }
 
     void InitializeContainerUI(GameObject targetContainer)
@@ -62,7 +62,7 @@ public class InventoryUI : MonoBehaviour
 
     void CloseContainerUI()
     {
-        player.GetComponent<Player>().SwitchUIFocus();
+        playerController.SwitchUIFocus();
         ContainerUIReset();
         containerUI.SetActive(false);
     }
