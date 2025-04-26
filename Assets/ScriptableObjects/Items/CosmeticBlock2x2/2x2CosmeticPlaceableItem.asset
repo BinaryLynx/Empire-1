@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d74025b2800cda49b023c77ead2e4b6, type: 3}
+  m_Name: 2x2CosmeticPlaceableItem
+  m_EditorClassIdentifier: 
+  id: 2x2Cosmetic
+  itemActions:
+  - {fileID: 11400000, guid: 52e56da65da01a54190844e5f7d0382a, type: 2}
+  previewAction: {fileID: 0}
+  gridSize: {x: 2, y: 2}
+  previewPrefab: {fileID: 2510489967523634925, guid: f1140c805f7d13948b5c2cae676e9bce, type: 3}
+  scenePrefab: {fileID: 2510489967523634925, guid: f1140c805f7d13948b5c2cae676e9bce, type: 3}

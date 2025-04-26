@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     PlayerInventory playerInventory;
+    InventoryItem currentSelectedItem;
 
     PlayerLook playerLook;
 
@@ -23,11 +24,13 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         playerInventory = gameObject.GetComponent<PlayerInventory>();
+        playerInventory.OnSelectedSlotChanged += ChangeCurrentSelectedItem;
 
         playerLook = gameObject.GetComponentInChildren<PlayerLook>();
         Cursor.lockState = CursorLockMode.Locked;
 
         interactiveLayer = LayerMask.GetMask("Interactive");
+
     }
 
     public void Update()
@@ -35,6 +38,37 @@ public class PlayerController : MonoBehaviour
         SelectInventorySlot();
         CheckContainerInteraction();
         ToggleInventory();
+        PreviewItem();
+        CheckItemActionInputs();
+
+    }
+
+    private void ChangeCurrentSelectedItem(int oldSlotIndex, int newSlotIndex)
+    {
+        currentSelectedItem = playerInventory.GetSelectedItem();
+    }
+
+    private void CheckItemActionInputs()
+    {
+        if (currentSelectedItem is null)
+        {
+            return;
+        }
+
+        List<ItemActionSO> itemActions = currentSelectedItem.itemTemplate.usableItem.GetAvailableActions(gameObject);
+        foreach (ItemActionSO action in itemActions)
+        {
+            if (action.inputAction.action.WasPerformedThisFrame())
+            {
+                currentSelectedItem.itemTemplate.usableItem.Use(action.actionName, gameObject);
+                break;
+            }
+        }
+    }
+
+    private void PreviewItem()
+    {
+        currentSelectedItem?.itemTemplate?.usableItem?.Preview(gameObject);
     }
 
     void ToggleInventory()

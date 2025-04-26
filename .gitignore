@@ -3,5 +3,5 @@
 !Assets/
 !Assets/**/
 !*.cs
-!**/Templates/**.asset
+!**/ScriptableObjects/**/**.asset
 !TODO

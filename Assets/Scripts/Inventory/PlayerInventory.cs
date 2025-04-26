@@ -24,8 +24,19 @@ public class PlayerInventory : Inventory
 
         int oldSlotIndex = selectedSlotIndex;
         selectedSlotIndex = newSlotIndex;
+        // slots[newSlotIndex].Preview();
         OnSelectedSlotChanged(oldSlotIndex, selectedSlotIndex);
         return selectedSlotIndex;
+    }
+
+    // public void Update()
+    // {
+
+    // }
+
+    public InventoryItem GetSelectedItem()
+    {
+        return (selectedSlotIndex == -1) ? null : slots[selectedSlotIndex].item;
     }
 
 }
